@@ -4,7 +4,7 @@ const KanbanBoard = () => {
 
   const [boardData, setBoardData] = useState({
     todo: [],
-    inprogress: [],
+    in_progress: [],
     done: []
   });
 
@@ -31,28 +31,36 @@ const KanbanBoard = () => {
   }
 
   const onDrop = (e, toColumn) => {
-  const task = e.dataTransfer.getData("task");
-  const fromColumn = e.dataTransfer.getData("from");
-  console.log("onDrop of :",task,"from",fromColumn,"column")
+    console.log("e",e);
+    
+    const task = e.dataTransfer.getData("task");
+    const fromColumn = e.dataTransfer.getData("from");
+    console.log("onDrop of :",task,"from",fromColumn,"column")
 
-  if (fromColumn === toColumn) return;
+    if (fromColumn === toColumn) return;
 
-  setBoardData(prev => {
-    const updated = { ...prev };
-    updated[fromColumn] = updated[fromColumn].filter(t => t !== task);
-    updated[toColumn] = [...updated[toColumn], task];
-    return updated;
-  });
+    setBoardData(prev => {
+      const updated = { ...prev };
+      updated[fromColumn] = updated[fromColumn].filter(t => t !== task);
+      updated[toColumn] = [...updated[toColumn], task];
+      return updated;
+    });
   }
 
   return (
     <div style={styles.board}> 
       {Object.entries(boardData).map(([columnName, tasks]) => (
        
-        <div key={columnName} style={styles.column} onDragOver={(e) => e.preventDefault()}  onDrop={(e) => onDrop(e, columnName)}>
+        <div key={columnName}
+         style={styles.column} 
+          onDragOver={(e) => e.preventDefault()} 
+            onDrop={(e) => onDrop(e, columnName)}>
           <h3>{columnName.toUpperCase()}</h3>
           {tasks.map((task, index) => (
-            <div key={index} style={styles.card} draggable="true" onDragStart={(e) => onDragStart(e, task, columnName)}>{task}</div>
+            <div key={index} 
+             style={styles.card} 
+              draggable="true" 
+               onDragStart={(e) => onDragStart(e, task, columnName)}>{task}</div>
           ))}
           <div style={{bottom: '0px',position:'absolute'}}>
           <input type="text" placeholder="enter here" ref={(el) => (inputRefs.current[columnName] = el)} />
@@ -92,3 +100,6 @@ const styles = {
 };
 
 export default KanbanBoard;
+
+
+

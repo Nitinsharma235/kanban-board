@@ -1,11 +1,12 @@
 import './App.css';
 import KanbanBoard from './components/KanbanBoard';
+import DndKanban from './components/DndKanban';
 
 function App() {
   return (
     <div className="App">
-    <h1>Kanban Board</h1>
-    <KanbanBoard/>
+    {/*<KanbanBoard/> */}
+    <DndKanban/>
     </div>
   );
 }
