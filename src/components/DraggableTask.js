@@ -22,8 +22,9 @@ const DraggableTask = ({task, onDelete}) => {
   
   return (
        <div ref={setNodeRef} style={style} {...attributes} >
-         <span {...listeners} style={{ flexGrow: 1 }}>{task.content}</span>
-         <button onClick={(e) =>{e.stopPropagation();  onDelete(task.id)}} style={{ marginLeft: "1rem" }}>X</button>
+        
+         <span {...listeners} style={{ flexGrow: 1, cursor: "grab" }}>{task.content}</span>
+         <button onClick={() =>  onDelete(task.id)} style={{ marginLeft: "1rem" }}>X</button>
        </div>
   )
 }
